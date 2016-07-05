@@ -33,7 +33,7 @@
         <div class="row"> <!-- open row -->
             <br />
             <div class="col-sm-5"> <!-- open column -->
-                <asp:Calendar ID="bookingCalendar" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid" CellSpacing="1" Font-Size="9pt" ForeColor="Black" Height="250px" NextPrevFormat="ShortMonth" OnDayRender="bookingCalendar_DayRender" Width="293px" SelectionMode="None">
+                <asp:Calendar ID="bookingCalendar" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid" CellSpacing="1" Font-Size="9pt" ForeColor="Black" Height="350px" NextPrevFormat="ShortMonth" OnDayRender="bookingCalendar_DayRender" Width="350px" SelectionMode="None">
                     <DayHeaderStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" Height="8pt" />
                     <DayStyle BackColor="#CCCCCC" />
                     <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="White" />
@@ -56,8 +56,14 @@
 
         <div class="row"> <!-- open row -->
             <div class="col-sm-8"> <!-- open column -->
-                <asp:CheckBoxList ID="chkListOfHolidays" runat="server" OnSelectedIndexChanged="chkListOfHolidays_SelectedIndexChanged">
-                </asp:CheckBoxList>
+               <%-- <asp:CheckBoxList ID="chkListOfHolidays" runat="server">
+                </asp:CheckBoxList>--%>
+                <asp:PlaceHolder ID="checkbokPlaceholder" runat="server"></asp:PlaceHolder>
+            </div> <!-- close column -->
+        </div> <!-- close row -->
+            <div class="row"> <!-- open row -->
+            <div class="col-sm-8"> <!-- open column -->
+                <asp:Button ID="btnRemove" runat="server" Text="Remove Holiday" OnClick="btnRemove_Click" />
             </div> <!-- close column -->
         </div> <!-- close row -->
         </form>

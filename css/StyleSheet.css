@@ -4,13 +4,13 @@
 .container.customContainer {
     font-family: 'Roboto', sans-serif;
     font-size: large;
-    color: azure;
+    color: blueviolet;
 }
 
 .jumbotron.customTitle {
     font-family: 'Raleway', sans-serif;
     text-align: center;
-    color: azure;
+    color: blueviolet;
     opacity: 1;
     background-color:#819b9a;
     opacity: 0.85;

@@ -25,7 +25,6 @@ public class holidayBookingData
         this.totalDays = days;
         listOfHolidays.Add(this);
     }
-
 }
 
 public partial class _Default : System.Web.UI.Page
@@ -33,7 +32,8 @@ public partial class _Default : System.Web.UI.Page
     
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        CreateCheckboxMethod();
+        //UpdateChkList();
     }
 
     public void bookingCalendar_DayRender(Object source, DayRenderEventArgs e)
@@ -73,6 +73,8 @@ public partial class _Default : System.Web.UI.Page
         TimeSpan dayDifference = endDateTemp.Subtract(startDateTemp);
         int dayDiffInt = Int32.Parse(dayDifference.Days.ToString());
         holidayBookingData temp = new holidayBookingData("Andy", startDateTemp, endDateTemp, dayDiffInt);
+        CreateCheckboxMethod();
+        // UpdateChkList();
     }
 
     //Convert to date object method
@@ -88,11 +90,54 @@ public partial class _Default : System.Web.UI.Page
         return dateToReturn;
     }
 
-    protected void chkListOfHolidays_SelectedIndexChanged(object sender, EventArgs e)
+    //method for updating the checklist box when items are added or removed
+    //public void UpdateChkList()
+    //{
+    //    chkListOfHolidays.Items.Clear();
+    //    foreach (holidayBookingData h in holidayBookingData.listOfHolidays)
+    //    {
+    //        chkListOfHolidays.Items.Add(" " + h.name + " has holiday booked from " + h.startDate
+    //            + " until " + h.endDate);   
+    //    }
+    //}
+
+    //method for removing holidays from the calender
+    public void removeHoliday()
     {
-        foreach(holidayBookingData h in holidayBookingData.listOfHolidays)
+        int index = 0;
+        CheckBoxList cbx = (CheckBoxList)checkbokPlaceholder.FindControl("chkboxListOfHolidays");
+        foreach (ListItem chkList in cbx.Items) 
         {
-            chkListOfHolidays.Items.Add(h.name);
+            if (chkList.Selected)
+            {
+                testLabel.Text = "checked recieved";
+                holidayBookingData.listOfHolidays.RemoveAt(index);
+            }
+            index++;
         }
     }
+
+    //new method to try and create the dynamic checkbox and be able to retrieve the checked value
+    public void CreateCheckboxMethod()
+    {
+        CheckBoxList listOFHolidaysChk = new CheckBoxList();
+        listOFHolidaysChk.Items.Clear();
+        listOFHolidaysChk.ID = "chkboxListOfHolidays";
+        foreach(holidayBookingData h in holidayBookingData.listOfHolidays)
+        {
+            listOFHolidaysChk.Items.Add(new ListItem(" " + h.name + " has holiday booked from "
+                + h.startDate + " until " + h.endDate));
+        }
+        checkbokPlaceholder.Controls.Add(listOFHolidaysChk);
+
+    }
+
+    //remove button logic
+    protected void btnRemove_Click(object sender, EventArgs e)
+    {
+        removeHoliday();
+        CreateCheckboxMethod();
+        //UpdateChkList();
+    }
+
 }
