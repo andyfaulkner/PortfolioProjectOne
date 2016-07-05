@@ -1,2 +1,17 @@
 ﻿body {
 }
+
+.container.customContainer {
+    font-family: 'Roboto', sans-serif;
+    font-size: large;
+    color: azure;
+}
+
+.jumbotron.customTitle {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    color: azure;
+    opacity: 1;
+    background-color:#819b9a;
+    opacity: 0.85;
+}
