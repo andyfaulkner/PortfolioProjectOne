@@ -7,7 +7,6 @@
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'/>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'/>
     <meta charset="utf-8"/>
-    <link href="css/StyleSheet.css" rel="stylesheet" />
     <script src="Scripts/jquery-1.9.1.min.js"></script>
     <link href="Content/bootstrap.min.css" rel="stylesheet" />
     <script src="Scripts/bootstrap.js"></script>
@@ -18,6 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="css/StyleSheet.css" rel="stylesheet" />
     <title>Holiday Booking Application</title>
 </head>
 
@@ -33,7 +33,7 @@
         <div class="row"> <!-- open row -->
             <br />
             <div class="col-sm-5"> <!-- open column -->
-                <asp:Calendar ID="bookingCalendar" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid" CellSpacing="1" Font-Size="9pt" ForeColor="Black" Height="350px" NextPrevFormat="ShortMonth" OnDayRender="bookingCalendar_DayRender" Width="350px" SelectionMode="None">
+                <asp:Calendar ID="bookingCalendar" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid" CellSpacing="1" Font-Size="9pt" ForeColor="Black" Height="350px" NextPrevFormat="FullMonth" OnDayRender="bookingCalendar_DayRender" Width="350px" SelectionMode="None">
                     <DayHeaderStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" Height="8pt" />
                     <DayStyle BackColor="#CCCCCC" />
                     <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="White" />

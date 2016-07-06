@@ -33,7 +33,6 @@ public partial class _Default : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         CreateCheckboxMethod();
-        //UpdateChkList();
     }
 
     public void bookingCalendar_DayRender(Object source, DayRenderEventArgs e)
@@ -58,10 +57,6 @@ public partial class _Default : System.Web.UI.Page
             }
             count++;
         }
-        
-        // Add custom text to cell in the Calendar control.
-        //e.Cell.Controls.Add(new LiteralControl("<br />Holiday"));
-
     }
 
     //Method to get the date input convert it to a date object and
@@ -71,10 +66,10 @@ public partial class _Default : System.Web.UI.Page
         DateTime startDateTemp = ConvertToDate(txtStartDate.Text);
         DateTime endDateTemp = ConvertToDate(txtEndDate.Text);
         TimeSpan dayDifference = endDateTemp.Subtract(startDateTemp);
-        int dayDiffInt = Int32.Parse(dayDifference.Days.ToString());
+        int dayDiffInt = Int32.Parse(dayDifference.Days.ToString()) + 1;
         holidayBookingData temp = new holidayBookingData("Andy", startDateTemp, endDateTemp, dayDiffInt);
+        checkbokPlaceholder.Controls.Clear();
         CreateCheckboxMethod();
-        // UpdateChkList();
     }
 
     //Convert to date object method
@@ -90,54 +85,46 @@ public partial class _Default : System.Web.UI.Page
         return dateToReturn;
     }
 
-    //method for updating the checklist box when items are added or removed
-    //public void UpdateChkList()
-    //{
-    //    chkListOfHolidays.Items.Clear();
-    //    foreach (holidayBookingData h in holidayBookingData.listOfHolidays)
-    //    {
-    //        chkListOfHolidays.Items.Add(" " + h.name + " has holiday booked from " + h.startDate
-    //            + " until " + h.endDate);   
-    //    }
-    //}
-
     //method for removing holidays from the calender
     public void removeHoliday()
     {
         int index = 0;
+        List<int> indexToDelete = new List<int>();
         CheckBoxList cbx = (CheckBoxList)checkbokPlaceholder.FindControl("chkboxListOfHolidays");
         foreach (ListItem chkList in cbx.Items) 
         {
             if (chkList.Selected)
             {
-                testLabel.Text = "checked recieved";
-                holidayBookingData.listOfHolidays.RemoveAt(index);
+                indexToDelete.Add(index);
             }
             index++;
+        }
+        for (int i = indexToDelete.Count; i > 0; i--)
+        {
+            holidayBookingData.listOfHolidays.RemoveAt(index);
         }
     }
 
     //new method to try and create the dynamic checkbox and be able to retrieve the checked value
     public void CreateCheckboxMethod()
     {
-        CheckBoxList listOFHolidaysChk = new CheckBoxList();
-        listOFHolidaysChk.Items.Clear();
-        listOFHolidaysChk.ID = "chkboxListOfHolidays";
-        foreach(holidayBookingData h in holidayBookingData.listOfHolidays)
-        {
-            listOFHolidaysChk.Items.Add(new ListItem(" " + h.name + " has holiday booked from "
-                + h.startDate + " until " + h.endDate));
-        }
-        checkbokPlaceholder.Controls.Add(listOFHolidaysChk);
-
+            CheckBoxList listOFHolidaysChk = new CheckBoxList();
+            listOFHolidaysChk.Items.Clear();
+            listOFHolidaysChk.ID = "chkboxListOfHolidays";
+            foreach (holidayBookingData h in holidayBookingData.listOfHolidays)
+            {
+                listOFHolidaysChk.Items.Add(new ListItem(" " + h.name + " has holiday booked from "
+                    + h.startDate + " until " + h.endDate));
+            }
+            checkbokPlaceholder.Controls.Add(listOFHolidaysChk);
     }
 
     //remove button logic
     protected void btnRemove_Click(object sender, EventArgs e)
     {
-        removeHoliday();
-        CreateCheckboxMethod();
-        //UpdateChkList();
+            removeHoliday();
+            checkbokPlaceholder.Controls.Clear();
+            CreateCheckboxMethod();
     }
 
 }
