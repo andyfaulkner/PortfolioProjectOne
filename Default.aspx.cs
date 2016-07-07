@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+//Class and constructer for the holiday data
 public class holidayBookingData
 {
     //holiday data varibles
@@ -23,6 +24,7 @@ public class holidayBookingData
         this.startDate = start;
         this.endDate = end;
         this.totalDays = days;
+        //automatically add all the holidays created to a public list
         listOfHolidays.Add(this);
     }
 }
@@ -32,6 +34,7 @@ public partial class _Default : System.Web.UI.Page
     
     protected void Page_Load(object sender, EventArgs e)
     {
+        //initialise the checkboxlist so it doesn't cause a null exception when adding holidays
         CreateCheckboxMethod();
     }
 
@@ -57,6 +60,16 @@ public partial class _Default : System.Web.UI.Page
             }
             count++;
         }
+        //render the weekend into a different color
+        if (e.Day.IsWeekend)
+        {
+            e.Cell.BackColor = System.Drawing.Color.Linen;
+        }
+        //render the previous and next month overlap in a different colour
+        if (e.Day.IsOtherMonth)
+        {
+
+        }
     }
 
     //Method to get the date input convert it to a date object and
@@ -68,6 +81,7 @@ public partial class _Default : System.Web.UI.Page
         TimeSpan dayDifference = endDateTemp.Subtract(startDateTemp);
         int dayDiffInt = Int32.Parse(dayDifference.Days.ToString()) + 1;
         holidayBookingData temp = new holidayBookingData("Andy", startDateTemp, endDateTemp, dayDiffInt);
+        //remove the controls from the page so that they don't write on top of each other
         checkbokPlaceholder.Controls.Clear();
         CreateCheckboxMethod();
     }
@@ -90,8 +104,11 @@ public partial class _Default : System.Web.UI.Page
     {
         int index = 0;
         List<int> indexToDelete = new List<int>();
+        //clear the list of index's ready to be repopulated depending on what holidays are needed to be deleted
         indexToDelete.Clear();
         CheckBoxList cbx = (CheckBoxList)checkbokPlaceholder.FindControl("chkboxListOfHolidays");
+        //check for checkbox value and add the index to a list to be deleted(this allows for multiple records
+        //to be deleted at the same time
         foreach (ListItem chkList in cbx.Items) 
         {
             if (chkList.Selected)
@@ -100,32 +117,39 @@ public partial class _Default : System.Web.UI.Page
             }
             index++;
         }
-        (int i = indexToDelete.Count; i > 0; i--)
+        //go backwards through the list of records to delete and removing them
+        //this is done like this to stop the index out of range exceptions caused by shortening the list
+        for (int i = indexToDelete.Count() - 1; i >= 0; i--)
         {
             holidayBookingData.listOfHolidays.RemoveAt(indexToDelete[i]);
         }
     }
 
-    //new method to try and create the dynamic checkbox and be able to retrieve the checked value
+    //new method to create the dynamic checkboxlist and be able to retrieve the checked value
+    //using the checkboxlist object to be able to retrieve the values from the checkbox's 
     public void CreateCheckboxMethod()
     {
-            CheckBoxList listOFHolidaysChk = new CheckBoxList();
-            listOFHolidaysChk.Items.Clear();
-            listOFHolidaysChk.ID = "chkboxListOfHolidays";
-            foreach (holidayBookingData h in holidayBookingData.listOfHolidays)
-            {
-                listOFHolidaysChk.Items.Add(new ListItem(" " + h.name + " has holiday booked from "
-                    + h.startDate + " until " + h.endDate));
-            }
-            checkbokPlaceholder.Controls.Add(listOFHolidaysChk);
+        CheckBoxList listOFHolidaysChk = new CheckBoxList();
+
+        listOFHolidaysChk.Items.Clear();
+        listOFHolidaysChk.ID = "chkboxListOfHolidays";
+        foreach (holidayBookingData h in holidayBookingData.listOfHolidays)
+        {
+            listOFHolidaysChk.Items.Add(new ListItem("  - " + h.name + " has holiday booked from "
+                + h.startDate + " until " + h.endDate));
+        }
+        checkbokPlaceholder.Controls.Add(listOFHolidaysChk);
     }
 
-    //remove button logic
+    //remove button method
     protected void btnRemove_Click(object sender, EventArgs e)
     {
-            removeHoliday();
-            checkbokPlaceholder.Controls.Clear();
-            CreateCheckboxMethod();
+        //call the remove holiday method
+        removeHoliday();
+        //remove the controls from the page so that they don't write on top of each other
+        checkbokPlaceholder.Controls.Clear();
+        //recreate the checkboxlist
+        CreateCheckboxMethod();
     }
 
 }

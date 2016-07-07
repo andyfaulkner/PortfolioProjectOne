@@ -17,7 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link href="css/StyleSheet.css" rel="stylesheet" />
+    <link href="css/StyleSheet.css" rel="stylesheet" /> <!-- Custom css -->
     <title>Holiday Booking Application</title>
 </head>
 
@@ -33,7 +33,7 @@
         <div class="row"> <!-- open row -->
             <br />
             <div class="col-sm-5"> <!-- open column -->
-                <asp:Calendar ID="bookingCalendar" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid" CellSpacing="1" Font-Size="9pt" ForeColor="Black" Height="350px" NextPrevFormat="FullMonth" OnDayRender="bookingCalendar_DayRender" Width="350px" SelectionMode="None">
+                <asp:Calendar ID="bookingCalendar" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid" CellSpacing="1" Font-Size="9pt" ForeColor="Black" Height="350px" NextPrevFormat="FullMonth" OnDayRender="bookingCalendar_DayRender" Width="350px" SelectionMode="None" FirstDayOfWeek="Monday">
                     <DayHeaderStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" Height="8pt" />
                     <DayStyle BackColor="#CCCCCC" />
                     <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="White" />
@@ -56,8 +56,6 @@
 
         <div class="row"> <!-- open row -->
             <div class="col-sm-8"> <!-- open column -->
-               <%-- <asp:CheckBoxList ID="chkListOfHolidays" runat="server">
-                </asp:CheckBoxList>--%>
                 <asp:PlaceHolder ID="checkbokPlaceholder" runat="server"></asp:PlaceHolder>
             </div> <!-- close column -->
         </div> <!-- close row -->
