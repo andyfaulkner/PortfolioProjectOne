@@ -90,6 +90,7 @@ public partial class _Default : System.Web.UI.Page
     {
         int index = 0;
         List<int> indexToDelete = new List<int>();
+        indexToDelete.Clear();
         CheckBoxList cbx = (CheckBoxList)checkbokPlaceholder.FindControl("chkboxListOfHolidays");
         foreach (ListItem chkList in cbx.Items) 
         {
@@ -99,9 +100,9 @@ public partial class _Default : System.Web.UI.Page
             }
             index++;
         }
-        for (int i = indexToDelete.Count; i > 0; i--)
+        (int i = indexToDelete.Count; i > 0; i--)
         {
-            holidayBookingData.listOfHolidays.RemoveAt(index);
+            holidayBookingData.listOfHolidays.RemoveAt(indexToDelete[i]);
         }
     }
 
