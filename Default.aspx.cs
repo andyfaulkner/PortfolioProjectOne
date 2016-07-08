@@ -68,7 +68,7 @@ public partial class _Default : System.Web.UI.Page
         //render the previous and next month overlap in a different colour
         if (e.Day.IsOtherMonth)
         {
-
+            e.Cell.BackColor = System.Drawing.Color.Bisque;
         }
     }
 

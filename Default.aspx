@@ -33,7 +33,7 @@
         <div class="row"> <!-- open row -->
             <br />
             <div class="col-sm-5"> <!-- open column -->
-                <asp:Calendar ID="bookingCalendar" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid" CellSpacing="1" Font-Size="9pt" ForeColor="Black" Height="350px" NextPrevFormat="FullMonth" OnDayRender="bookingCalendar_DayRender" Width="350px" SelectionMode="None" FirstDayOfWeek="Monday">
+                <asp:Calendar ID="bookingCalendar" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid" CellSpacing="1" Font-Size="9pt" ForeColor="Black" Height="350px" NextPrevFormat="FullMonth" OnDayRender="bookingCalendar_DayRender" Width="350px" SelectionMode="None" FirstDayOfWeek="Sunday">
                     <DayHeaderStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" Height="8pt" />
                     <DayStyle BackColor="#CCCCCC" />
                     <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="White" />
