@@ -22,48 +22,61 @@
 </head>
 
 <body>
-    <div class="container customContainer"> <!-- open bootstrap container -->
+    <div class="container-fluid customContainer"> <!-- open bootstrap container -->
         <div class="row"> <!-- open row --> 
-            <div class="jumbotron customTitle"><h1>Holiday Booking Application</h1></div>
+            <div class="jumbotron customTitle"><h1>Holiday Booking Application</h1>
+            </div>
         </div> <!-- close row -->
-        <div class="row"> <!-- open row -->
-
-        </div><!-- close row -->
         <form id="holidayForm" runat="server">
-        <div class="row"> <!-- open row -->
-            <br />
-            <div class="col-sm-5"> <!-- open column -->
-                <asp:Calendar ID="bookingCalendar" runat="server" BackColor="White" BorderColor="Black" BorderStyle="Solid" CellSpacing="1" Font-Size="9pt" ForeColor="Black" Height="350px" NextPrevFormat="FullMonth" OnDayRender="bookingCalendar_DayRender" Width="350px" SelectionMode="None" FirstDayOfWeek="Sunday">
-                    <DayHeaderStyle Font-Bold="True" Font-Size="8pt" ForeColor="#333333" Height="8pt" />
-                    <DayStyle BackColor="#CCCCCC" />
-                    <NextPrevStyle Font-Bold="True" Font-Size="8pt" ForeColor="White" />
-                    <OtherMonthDayStyle ForeColor="#999999" />
-                    <SelectedDayStyle BackColor="#333399" ForeColor="White" />
-                    <TitleStyle BackColor="#333399" BorderStyle="Solid" Font-Bold="True" Font-Size="12pt" ForeColor="White" Height="12pt" />
-                    <TodayDayStyle BackColor="#999999" ForeColor="White" />
-                </asp:Calendar>
-            </div> <!-- close column -->
-            <div class="col-sm-7"> <!-- open column -->
-                <h4>Start Date:</h4>
-                <asp:TextBox ID="txtStartDate" runat="server" TextMode="Date"></asp:TextBox><br />
-                <h4>End Date:</h4>
-                <asp:TextBox ID="txtEndDate" runat="server" TextMode="Date"></asp:TextBox><br />
-                <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
-                <br />
-                <asp:Label ID="testLabel" runat="server" Text=""></asp:Label>
-            </div> <!-- close column -->
-        </div><!-- close row -->
+            <div class="row panel panel-default"> <!-- open row -->
+                <div class="col-sm-5"> <!-- open column -->
+                    <asp:Calendar ID="bookingCalendar" runat="server" CssClass="table" NextPrevFormat="ShortMonth" 
+                        OnDayRender="bookingCalendar_DayRender" SelectionMode="None" FirstDayOfWeek="Sunday"
+                        ForeColor="#005ce6">
+                        <DayHeaderStyle HorizontalAlign="Center" />
+                        <DayStyle BorderStyle="Solid" BorderColor="#00cc99" BorderWidth="1px" BackColor="White" />
+                        <OtherMonthDayStyle />
+                        <TitleStyle BackColor="white" Font-Bold="true"/>
+                        <TodayDayStyle BorderStyle="Outset"/>
+                    </asp:Calendar>
+                </div> <!-- close column -->
+                <div class="col-sm-7"> <!-- open column -->
+                    <div>Please enter the start and end dates of the holiday you wish to book.
+                    </div>
+                    <div class="row">  <!-- open row -->
+                    <div class="col-sm-5">
+                        <h5>Start Date:</h5>
+                        <asp:TextBox ID="txtStartDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox><br />
+                    </div>
+                    </div> <!-- close row -->
+                    <div class="row">  <!-- open row -->
+                    <div class="col-sm-5">
+                    <h5>End Date:</h5>
+                        <asp:TextBox ID="txtEndDate" runat="server" TextMode="Date" CssClass="form-control"></asp:TextBox><br />
+                    </div>
+                        </div> <!-- close row -->
+                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" CssClass="btn btn-default" />
+                    <asp:Label ID="dateWarning" runat="server" Text="" CssClass="text-warning"></asp:Label>
+                </div> <!-- close column -->
+            </div><!-- close row -->
+            <div class="row panel panel-default">
+            <div class="row"><!-- open row -->
+                <div class="col-sm-12"><!-- open column -->
+                    <asp:Label ID="lblBookedHolidays" runat="server" Text="Holiday's that have been booked: "></asp:Label>
+                </div><!-- close column -->
+            </div><!-- close row -->
 
-        <div class="row"> <!-- open row -->
-            <div class="col-sm-8"> <!-- open column -->
-                <asp:PlaceHolder ID="checkbokPlaceholder" runat="server"></asp:PlaceHolder>
-            </div> <!-- close column -->
-        </div> <!-- close row -->
             <div class="row"> <!-- open row -->
-            <div class="col-sm-8"> <!-- open column -->
-                <asp:Button ID="btnRemove" runat="server" Text="Remove Holiday" OnClick="btnRemove_Click" />
-            </div> <!-- close column -->
-        </div> <!-- close row -->
+                <div class="col-sm-12"> <!-- open column -->
+                    <asp:PlaceHolder ID="checkbokPlaceholder" runat="server"></asp:PlaceHolder>
+                </div> <!-- close column -->
+            </div> <!-- close row -->
+                <div class="row"> <!-- open row -->
+                <div class="col-sm-12"> <!-- open column -->
+                    <asp:Button  ID="btnRemove" runat="server" Text="Remove Holiday" OnClick="btnRemove_Click" CssClass="btn btn-default" />
+                </div> <!-- close column -->
+            </div> <!-- close row -->
+                </div>
         </form>
     </div> <!-- Close container -->
 </body>

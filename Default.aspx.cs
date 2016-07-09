@@ -5,6 +5,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+//expansion class idea to track amount of holiday allocation remaining
+public class Employee
+{
+
+}
+
 //Class and constructer for the holiday data
 public class holidayBookingData
 {
@@ -43,7 +49,7 @@ public partial class _Default : System.Web.UI.Page
         // Change the background color of the days in the month
         //if (!e.Day.IsOtherMonth && !e.Day.IsWeekend)
         //    e.Cell.BackColor = System.Drawing.Color.LightGoldenrodYellow;
-
+        
         //Create the DayRender function to take the data from the list and then color the 
         //cells accordingly
         int count = 0;
@@ -54,7 +60,7 @@ public partial class _Default : System.Web.UI.Page
             {
             if (e.Day.Date == tempStartDate)
                 {
-                    e.Cell.BackColor = System.Drawing.Color.Coral;
+                    e.Cell.BackColor = System.Drawing.Color.FromArgb(230, 242, 255);
                 }
                 tempStartDate = tempStartDate.AddDays(1);
             }
@@ -63,12 +69,12 @@ public partial class _Default : System.Web.UI.Page
         //render the weekend into a different color
         if (e.Day.IsWeekend)
         {
-            e.Cell.BackColor = System.Drawing.Color.Linen;
+            e.Cell.BackColor = System.Drawing.Color.FromArgb(254, 254, 230);
         }
         //render the previous and next month overlap in a different colour
         if (e.Day.IsOtherMonth)
         {
-            e.Cell.BackColor = System.Drawing.Color.Bisque;
+            e.Cell.BackColor = System.Drawing.Color.FromArgb(245,245,239);
         }
     }
 
@@ -76,14 +82,23 @@ public partial class _Default : System.Web.UI.Page
     //then work out the difference in days
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
-        DateTime startDateTemp = ConvertToDate(txtStartDate.Text);
-        DateTime endDateTemp = ConvertToDate(txtEndDate.Text);
-        TimeSpan dayDifference = endDateTemp.Subtract(startDateTemp);
-        int dayDiffInt = Int32.Parse(dayDifference.Days.ToString()) + 1;
-        holidayBookingData temp = new holidayBookingData("Andy", startDateTemp, endDateTemp, dayDiffInt);
-        //remove the controls from the page so that they don't write on top of each other
-        checkbokPlaceholder.Controls.Clear();
-        CreateCheckboxMethod();
+        try
+        {
+            dateWarning.Text = "";
+            DateTime startDateTemp = ConvertToDate(txtStartDate.Text);
+            DateTime endDateTemp = ConvertToDate(txtEndDate.Text);
+            TimeSpan dayDifference = endDateTemp.Subtract(startDateTemp);
+            int dayDiffInt = Int32.Parse(dayDifference.Days.ToString()) + 1;
+            int daysTaken = holidayDaysCalculation(startDateTemp, dayDiffInt);
+            holidayBookingData temp = new holidayBookingData("Andy", startDateTemp, endDateTemp, dayDiffInt);
+            //remove the controls from the page so that they don't write on top of each other
+            checkbokPlaceholder.Controls.Clear();
+            CreateCheckboxMethod();
+        }
+        catch (FormatException)
+        {
+            dateWarning.Text = "Please enter both a start and end date for your holiday";
+        }
     }
 
     //Convert to date object method
@@ -125,7 +140,7 @@ public partial class _Default : System.Web.UI.Page
         }
     }
 
-    //new method to create the dynamic checkboxlist and be able to retrieve the checked value
+    //method to create the dynamic checkboxlist and be able to retrieve the checked value
     //using the checkboxlist object to be able to retrieve the values from the checkbox's 
     public void CreateCheckboxMethod()
     {
@@ -135,9 +150,10 @@ public partial class _Default : System.Web.UI.Page
         listOFHolidaysChk.ID = "chkboxListOfHolidays";
         foreach (holidayBookingData h in holidayBookingData.listOfHolidays)
         {
-            listOFHolidaysChk.Items.Add(new ListItem("  - " + h.name + " has holiday booked from "
-                + h.startDate + " until " + h.endDate));
+            listOFHolidaysChk.Items.Add(new ListItem("-  " + h.name + " has holiday booked from "
+                + h.startDate.ToLongDateString() + " until " + h.endDate.ToLongDateString()));
         }
+        listOFHolidaysChk.CssClass = "checkbox";
         checkbokPlaceholder.Controls.Add(listOFHolidaysChk);
     }
 
@@ -150,6 +166,22 @@ public partial class _Default : System.Web.UI.Page
         checkbokPlaceholder.Controls.Clear();
         //recreate the checkboxlist
         CreateCheckboxMethod();
+    }
+
+    //method to calculate the amount of actual holiday days taken accounting for weekends not been part of
+    //the holiday allowance
+    public int holidayDaysCalculation(DateTime startDateToAddTo, int dayDifference)
+    {
+        int holidayDays = dayDifference;
+        for (int i = 1; i <= dayDifference; i++)
+        {
+            if (startDateToAddTo.DayOfWeek.ToString() == "Saturday" || startDateToAddTo.DayOfWeek.ToString() == "Sunday")
+            {
+                holidayDays--;
+            }
+            startDateToAddTo = startDateToAddTo.AddDays(1);
+        }
+        return holidayDays;
     }
 
 }
