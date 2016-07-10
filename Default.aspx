@@ -32,9 +32,9 @@
                 <div class="col-sm-5"> <!-- open column -->
                     <asp:Calendar ID="bookingCalendar" runat="server" CssClass="table" NextPrevFormat="ShortMonth" 
                         OnDayRender="bookingCalendar_DayRender" SelectionMode="None" FirstDayOfWeek="Sunday"
-                        ForeColor="#005ce6">
+                        ForeColor="#383f33">
                         <DayHeaderStyle HorizontalAlign="Center" />
-                        <DayStyle BorderStyle="Solid" BorderColor="#00cc99" BorderWidth="1px" BackColor="White" />
+                        <DayStyle BorderStyle="Solid" BorderColor="#99ae8f" BorderWidth="1px" BackColor="White" />
                         <OtherMonthDayStyle />
                         <TitleStyle BackColor="white" Font-Bold="true"/>
                         <TodayDayStyle BorderStyle="Outset"/>
@@ -78,6 +78,11 @@
             </div> <!-- close row -->
                 </div>
         </form>
+        <div class="row panel panel-default"><!-- open row -->
+            <div class="col-sm-12"> <!-- open column -->
+
+            </div> <!-- close column -->
+        </div> <!-- close row -->
     </div> <!-- Close container -->
 </body>
 </html>
