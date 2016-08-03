@@ -46,10 +46,6 @@ public partial class _Default : System.Web.UI.Page
 
     public void bookingCalendar_DayRender(Object source, DayRenderEventArgs e)
     {
-        // Change the background color of the days in the month
-        //if (!e.Day.IsOtherMonth && !e.Day.IsWeekend)
-        //    e.Cell.BackColor = System.Drawing.Color.LightGoldenrodYellow;
-        
         //Create the DayRender function to take the data from the list and then color the 
         //cells accordingly
         int count = 0;
